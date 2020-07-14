@@ -1,18 +1,33 @@
 package main
 
 import (
-	"net/http"
+	"flag"
 	"fmt"
+	"net/http"
 )
 
 func main() {
-	routeHandler()
-}
+	db := getDB()
+	seed := flag.Bool("seed", false, "seeding DB")
+	unseed := flag.Bool("unseed", false, "unseeding DB")
+	migrate := flag.Bool("migrate", false, "migrate DB")
 
-func routeHandler() {
-	// mux := http.DefaultServeMux
+	flag.Parse()
 
-	http.HandleFunc("/", tesRoute)
+	if *migrate {
+		migrateDB(db)
+		return
+	}
+	if *seed {
+		seedDB(db)
+		return
+
+	} else if *unseed {
+		unseedDB(db)
+		return
+	}
+
+	http.HandleFunc("/", mainRouter)
 
 	addr := "127.0.0.1:5000"
 	server := new(http.Server)
@@ -24,8 +39,6 @@ func routeHandler() {
 		fmt.Println(err.Error())
 		return
 	}
-}
 
-func tesRoute(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("HelloWorld"))
+	defer db.Close()
 }
