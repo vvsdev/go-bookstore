@@ -6,7 +6,7 @@ import (
 )
 
 func seedDB(db *sql.DB) {
-	query := []string{
+	querys := []string{
 		`insert into publishers values(
 			'1', 'UB PRESS'
 		);`,
@@ -29,8 +29,8 @@ func seedDB(db *sql.DB) {
 			'1', '1', '2020-02-20'
 		);
 		`}
-	for _, q := range query {
-		_, err := db.Exec(q)
+	for _, query := range querys {
+		_, err := db.Exec(query)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -40,7 +40,7 @@ func seedDB(db *sql.DB) {
 }
 
 func unseedDB(db *sql.DB) {
-	query := []string{
+	querys := []string{
 		`delete from publishers;`,
 		`delete from authors;`,
 		`delete from categories;`,
@@ -49,8 +49,8 @@ func unseedDB(db *sql.DB) {
 		`delete from users;`,
 		`delete from transactions;
 		`}
-	for _, q := range query {
-		_, err := db.Exec(q)
+	for _, query := range querys {
+		_, err := db.Exec(query)
 		if err != nil {
 			panic(err.Error())
 		}
