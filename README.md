@@ -30,6 +30,12 @@ go build .
 ##Migrate DB
 ./go-bookstore -migrate
 
+##Seeding DB
+./go-bookstore -seed
+
+##Unseeding DB
+./go-bookstore -unseed
+
 #Start Server
 ./go-bookstore
 ```
@@ -38,5 +44,5 @@ go build .
 * :white_check_mark: Init Project
 * :white_check_mark: Setting up env
 * :white_check_mark: Create Database Migration
-* :black_square_button: Create Database Seed
+* :white_check_mark: Create Database Seed
 * :black_square_button: Create Router
