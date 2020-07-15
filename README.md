@@ -1,25 +1,42 @@
 # go-bookstore
 Simple Bookstore backend services, built with Golang
 
+----------------------------
+* [Features](#features)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Work Progress](#work-progress)
+----------------------------
 ## Features
-### Book Catalog
-List all available books with detailed information such as Book Id, Title, Category, Price, Available Stock
+* Book Catalog
+* Transaction
+* JWT Authentication dan Authorization
+* Registration
+* Searching
+* Best Seller
 
-### Transaction
-Just a simple transaction logger
+## Requirements
+  * Go 1.10 or higher
+  * MySQL (4.1+)
 
-### JWT Authentication dan Authorization
-Authentication system with JSON Web Token to provide role based authorization
+## Installation
+1. Clone this Repo
+2. Rename .env.example to .env and change the variable value
+3. Run this command in terminal / shell
+```bash
+#Build Project
+go build .
 
-### Registration
-Just like conventional registration
+##Migrate DB
+./go-bookstore -migrate
 
-### Searching
-Search book with title or book id
+#Start Server
+./go-bookstore
+```
 
-### Best Seller
-U know what it means
-
-
-
-...To Be Continued
+## Work Progress
+* :white_check_mark: Init Project
+* :white_check_mark: Setting up env
+* :white_check_mark: Create Database Migration
+* :black_square_button: Create Database Seed
+* :black_square_button: Create Router
