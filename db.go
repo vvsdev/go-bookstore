@@ -10,13 +10,12 @@ import (
 )
 
 func getDB() *sql.DB {
-	err := godotenv.Load()
+	godotenv.Load()
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USERNAME")
 	dbPass := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
-
 	dbInit := dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName
 	db, err := sql.Open("mysql", dbInit)
 

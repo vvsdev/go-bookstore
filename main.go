@@ -28,7 +28,8 @@ func main() {
 	}
 
 	http.HandleFunc("/", mainRouter)
-
+	fs := http.FileServer(http.Dir("./swagger"))
+	http.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
 	addr := "127.0.0.1:5000"
 	server := new(http.Server)
 	server.Addr = addr
