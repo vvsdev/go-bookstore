@@ -19,9 +19,10 @@ func getDB() *sql.DB {
 
 	dbInit := dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName
 	db, err := sql.Open("mysql", dbInit)
+	err = db.Ping()
 
 	if err != nil {
-		fmt.Println(err.Error())
+		panic(err.Error())
 	}
 
 	fmt.Println("DB Connection Established")
