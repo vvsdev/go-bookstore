@@ -44,10 +44,3 @@ go build .
 
 ## API Documentation
 Start the Server then visit ``` http://localhost:5000/swagger ``` 
-## Work Progress
-* :white_check_mark: Init Project
-* :white_check_mark: Setting up env
-* :white_check_mark: Create Database Migration
-* :white_check_mark: Create Database Seed
-* :black_square_button: Create API Contract
-* :black_square_button: Create Router

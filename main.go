@@ -1,13 +1,20 @@
 package main
 
 import (
+	"database/sql"
 	"flag"
 	"fmt"
 	"net/http"
 )
 
+//Env for project global environment
+type Env struct {
+	db *sql.DB
+}
+
 func main() {
 	db := getDB()
+	env := &Env{db: db}
 	seed := flag.Bool("seed", false, "seeding DB")
 	unseed := flag.Bool("unseed", false, "unseeding DB")
 	migrate := flag.Bool("migrate", false, "migrate DB")
@@ -27,9 +34,13 @@ func main() {
 		return
 	}
 
-	http.HandleFunc("/", mainRouter)
-	fs := http.FileServer(http.Dir("./swagger"))
-	http.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+	//Router definition
+	//Auth
+	http.Handle("/auth/login", login(env))
+
+	//User
+	http.Handle("/users", UserHandler(env))
+
 	addr := "127.0.0.1:5000"
 	server := new(http.Server)
 	server.Addr = addr

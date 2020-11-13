@@ -1,3 +1,5 @@
+github.com/devianwahyu/go-bookstore v0.0.0-20200822142045-73b01332613b h1:R3FiMq84mgIk7b3Lsgjlv76W0DxK3uShrBbIqmWUvSg=
+github.com/devianwahyu/go-bookstore v0.0.0-20200822142045-73b01332613b/go.mod h1:26ucelLxMpN3HLnUz9RPPSSaIDYpdTKxe5RIZTpujD0=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
