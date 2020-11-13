@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
+	"log"
 )
 
 //UserModel Constructor
@@ -22,35 +22,63 @@ type User struct {
 	Password     string `json:"password"`
 }
 
-func (model *UserModel) getAllUsers() []User {
-	fakeModel := []User{
-		User{
-			UserID:       "1",
-			FirstName:    "A",
-			LastName:     "B",
-			Age:          13,
-			RegisteredAt: "Now",
-			Address:      "C",
-			Email:        "D",
-			Password:     "E",
-		},
-		User{
-			UserID:       "1",
-			FirstName:    "A",
-			LastName:     "B",
-			Age:          13,
-			RegisteredAt: "Now",
-			Address:      "C",
-			Email:        "D",
-			Password:     "E",
-		},
+func (model *UserModel) getAllUsers() []*User {
+	users := make([]*User, 0)
+
+	rows, err := model.db.Query("SELECT * FROM users")
+
+	if err != nil {
+		log.Fatal(err)
 	}
-	return fakeModel
+	for rows.Next() {
+		user := new(User)
+		err := rows.Scan(
+			&user.UserID,
+			&user.FirstName,
+			&user.LastName,
+			&user.Age,
+			&user.RegisteredAt,
+			&user.Address,
+			&user.Email,
+			&user.Password,
+		)
+		if err != nil {
+			log.Fatal(err)
+		}
+		users = append(users, user)
+	}
+	return users
 }
 
-func (model *UserModel) getUserById(id string) User {
-	query := fmt.Sprintf("select * from users where user_id=%s", id)
-	res, _ := model.db.Query(query)
-	fmt.Print(res)
-	return User{}
+func (model *UserModel) getUserByID(id string) (*User, error) {
+	row := model.db.QueryRow("select * from users where user_id = ?", id)
+	user := new(User)
+	err := row.Scan(
+		&user.UserID,
+		&user.FirstName,
+		&user.LastName,
+		&user.Age,
+		&user.RegisteredAt,
+		&user.Address,
+		&user.Email,
+		&user.Password)
+	return user, err
+}
+
+func (model *UserModel) insertUser(user User) error {
+	_, err := model.db.Exec("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+		user.UserID,
+		user.FirstName,
+		user.LastName,
+		user.Age,
+		user.RegisteredAt,
+		user.Address,
+		user.Email,
+		user.Password)
+	return err
+}
+
+func (model *UserModel) deleteUserByID(id string) error {
+	_, err := model.db.Exec("delete from users where user_id = ?", id)
+	return err
 }
